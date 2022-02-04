@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map基础</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  /*
+    Map是一种新的数据结构，与Object类似，但是Object中键名只能是字符串。Map解除了这个限制
+    原型方法:
+      .set(key,value)   返回返回新的当前实例对象，所以可以链式操作  ==>set(key1,value1).set(key2,value2).set(key3,value3)
+      .delete(key) 删除某个简直，返回值为布尔类型。删除成功则返回true，删除失败则返回false。删除压根不存在的属性，就会返回false
+      .has(key)  判断实例对象中是否含有属性key
+      .size 判断有多少个字段
+      .get(key) 获取键名为key的键值
+  */  
+  const mapObj = new Map()
+  const obj = {id:20,name:'jack'}
+  const bo = true
+  const num = ()=>2
+  const arr = [1,2,3]
+  mapObj.set(obj,12).set(bo,20).set(arr,90).set(num,'function')
+  console.log(mapObj.set(obj,12) )
+  console.log(mapObj)
+  console.log(mapObj.delete(arr))// true
+  console.log(mapObj.get(obj))
+  console.log(Object.prototype.toString.call(mapObj))//[object Map]
+  console.log(Object.keys(mapObj))// 不能用这个
+  for(let key in mapObj) {// 不打印  也不能用这个
+    console.log(key,mapObj[key])
+  }
+  const keysArr = mapObj.keys()// 键名组成的对象,对象的键值为map属性名，键名为从0开始的下标
+  const valuesArr = mapObj.values()//
+  console.log([...keysArr])
+  console.log([...valuesArr])
+  console.log(mapObj.entries())
+</script>

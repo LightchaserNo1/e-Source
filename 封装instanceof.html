@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封装instanceof</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  function Person() {}
+  let obj = new Person()
+  // console.log(obj instanceof Person) true
+  function myInstance (obj,fn) {
+    // 首先获取构造函数的原型
+    const prototype = fn.prototype
+    // 获取实例对象的隐式原型对象
+    const proto = obj.__proto__
+    while(proto) {
+      if(proto === prototype) {
+        return true
+      }
+      // 没找到的话继续向上一层的__proto__寻找
+      proto = proto.__proto__
+    }
+    return false
+  }
+  console.log(myInstance(obj,Person))
+</script>

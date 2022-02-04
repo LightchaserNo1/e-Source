@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封装concat</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  /*
+    concat() 可接收多个参数，参数可以为数组也可以为不为数组
+  */
+  let arr = [1,2,3,4,5]
+  let arr2 = [6,7,8]
+  // console.log(arr.concat(arr2,9,10)) [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  Array.prototype.Concat = function(...args){
+    const result = [...this]
+    // 是数组就先展开再push，不是数组就直接push
+    args.forEach((item)=>{
+      if(item instanceof Array) {
+        result.push(...item)
+      }else {
+        result.push(item)
+      }
+    })
+    return result
+  }
+  console.log(arr.Concat(arr2))
+</script>

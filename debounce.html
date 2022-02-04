@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函数防抖</title>
+</head>
+<body>
+  <input type="text">
+</body>
+</html>
+<script>
+  //防抖：等待一定的时间间隔再出发，如果等待这段时间内再次调用，则重新刷新时间。
+  function debounce(callback,timeout) {
+    let timer = null
+    return function(e) {
+      if(timer!==null){// 说明已经有一个定时器在跑了，则清空
+        clearTimeout(timer)
+      }
+      timer=setTimeout(()=>{
+        callback.call(this,e)
+        //每次执行完重置定时器变量
+        timer = null
+      },timeout)
+    }
+  }
+  let input = document.querySelector("input")
+  input.onkeyup = debounce(function(e){
+    console.log(e.keyCode)
+  },9000)
+</script>

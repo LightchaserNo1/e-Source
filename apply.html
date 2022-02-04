@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封装apply</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  Object.prototype.myApply = function(targetObj,args) {
+    if(targetObj===undefined || targetObj === null) {
+      targetObj = globalThis
+    }
+    targetObj.temporaryMethod = this
+    const result = targetObj.temporaryMethod(...args)
+    delete targetObj.temporaryMethod
+    return result
+  }
+  let obj = {
+    id:100
+  }
+  function demo(a,b) {
+    console.log(this.id+a+b)
+  }
+  demo.apply(obj,[100,100])
+</script>

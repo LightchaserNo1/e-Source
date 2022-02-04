@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>节流函数</title>
+</head>
+<body>
+  <div style="height:2000px;"></div>
+</body>
+</html>
+<script>
+  // window.onresize事件，onmousemove事件会高频率被触发 滚动scroll
+  // 节流函数:使函数有频率的被触发，成功触发之后，间歇时间大于设定的周期后才能再次触发。
+  function throttle(callback,interval) {
+    let start = 0
+    return function (e) {
+      let now = Date.now()
+      if(now-start>interval) {
+        callback.call(this,e)
+        start = now
+      }
+    }
+  }
+  window.addEventListener('scroll',throttle(function(e){
+    console.log('scroll',e)
+  },200))
+</script>

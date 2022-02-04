@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封装reduce</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  /*
+    arr.reduce((a,b)=>{},initValue)
+    a:结果值
+    b:要遍历的数组的每一项
+    处理每一项得出一个结果，第一个参数用来存储处理的结果
+  */
+  let arr = [1,2,3,4,5]
+  Array.prototype.myReduce = function(callback,initValue=1) {
+    let result = initValue
+    for(let i = 0;i<this.length;i++) {
+      result = callback(result,this[i])
+    }
+    return result
+  }
+  console.log(arr.myReduce((a,b)=>a+b))
+  // 封装的有缺陷，原生的reduce可根据写入逻辑自动生成合适的初始值。
+</script>

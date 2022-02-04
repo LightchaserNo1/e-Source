@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封装call</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  //this永远指向最后调用它的那个对象。
+  let obj = {
+    id:20
+  }
+  function demo(params1,params2) {
+    console.log(this.id+params1+params2)
+  }
+  // call传入的是有序数列，而apply会把参数放到一个数组中的形式传入。
+  Object.prototype.myCall = function(targetObj,...args){
+    console.log(this) // demo函数本身
+    if(targetObj === undefined || targetObj===null) {
+      targetObj = globalThis
+    }
+    targetObj.temp = this
+    let result = targetObj.temp(...args)
+    delete targetObj.temp;
+    return result
+  }
+  demo.myCall(obj,2,2)
+  console.log(Object.prototype.toString.myCall(demo))
+  console.log(Object.prototype.toString.myCall(obj))
+</script>

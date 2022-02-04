@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封装every&some</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  let arr = [1,2,3,4,5,6,7,8,9]
+  Array.prototype.Some = function(fn){
+    let flag = false
+    for(let i =0;i<this.length;i++) {
+      if(fn(this[i],i)) {
+        flag = true
+        break
+      }
+    }
+    return flag
+  }
+  Array.prototype.Every = function(fn){
+    let flag = true
+    for(let i =0;i<this.length;i++) {
+      if(!fn(this[i],i)) {
+        flag = false
+        break
+      }
+    }
+    return flag
+  }
+  console.log(arr.Some(item=>item>10))
+  console.log(arr.Some(item=>item>=9))
+  console.log(arr.Every(item=>item%1==0))
+  console.log(arr.Every(item=>item%2==0))
+</script>

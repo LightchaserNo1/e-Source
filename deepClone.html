@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深拷贝</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  //深拷贝： 第一种方式利用JSON
+  // JSON方法存在的方法: 1--不能拷贝方法(函数) 2--进行循环引用操作会报错
+  let obj = {
+    age:20,
+    info: {name:'tom'},
+    arr: [1,2,3]
+  }
+  // 以下递归方法可以拷贝函数,但是无法解决循环引用
+  function deepClone1 (target) {
+    if(typeof target === 'object' && target!==null) {
+      const result = target instanceof Array?[]:{}
+      for(let key in target) {
+        if(target.hasOwnProperty(key)) {
+          result[key] = deepClone1(target[key])
+        }
+      }
+      return result
+    }else {
+      return target
+    }
+  }
+  let obj2 = deepClone1(obj)
+  obj2.info.name = 'jack'
+  console.log(obj)
+  console.log(obj2)
+  // 解决循环引用
+  function deepClone2 (target,map = new Map()) {
+    if(typeof target === 'object' && target!==null) {
+      let cache = map.get(target)
+      if(cache) {
+        return cache
+      }
+      map.set(target,result)
+      const result = target instanceof Array?[]:{}
+      for(let key in target) {
+        if(target.hasOwnProperty(key)) {
+          result[key] = deepClone2(target[key],map)
+        }
+      }
+      return result
+    }else {
+      return target
+    }
+  }
+</script>

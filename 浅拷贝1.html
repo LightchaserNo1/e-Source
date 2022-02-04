@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>浅拷贝</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  let obj = {id:20,info: {x:100}}
+  function Clone1(x){
+    if(x instanceof Array) {
+      return [...x]
+    }else if(x instanceof Object && x!==null) {
+      return {...x}
+    }else{
+      return x
+    }
+  }
+  function clone2 (target) {
+    if(typeof(target)=='object' && target !==null) {
+      const result = target instanceof Array?[]:{}
+      for(let key in target) {
+        if(target.hasOwnProperty(key)) {
+          result[key] = target[key]
+        }
+      }
+      return target
+    }else{
+      return target
+    }
+  }
+  // 浅拷贝   修改拷贝对象中的某个引用数据类型的值，源对象的此引用数据类型的值也会一起变。
+  let obj2 = Clone1(obj)
+  obj2.id=30
+  obj2.info.x = 200
+  console.log(obj)
+  console.log(obj2)
+  let obj3 = clone2(obj)
+  console.log(obj3)
+</script>

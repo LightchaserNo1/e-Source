@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>出现最多</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  let arr = [1,1,2,3,3,3,4,50000,6,7,7,7,7,8,9,1000]
+  function findMost(arr){
+    const obj = {}
+    arr.forEach(item=>{
+      obj[item]=obj[item]?obj[item]+=1:1
+    })
+    const maxNum = Math.max(...Object.values(obj))
+    let maxName = null
+    for(let key in obj) {
+      if(obj[key]===maxNum){
+        maxName = key
+      }
+    }
+    return {maxName,maxNum}
+  }
+  console.log(findMost(arr))
+  function max(arr) {
+    let max = 0
+    for(let i =0;i<arr.length;i++) {
+      if(arr[i]>max) {
+        max = arr[i]
+      }
+    }
+    return max
+  }
+  console.log(max(arr))
+</script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封装bind</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  // bind方法不会立即执行，会返回一个新的函数，需要手动调用并执行
+  const obj = {
+    num: 100
+  }
+  function demo(a,b) {
+    console.log(this.num+a+b)
+  }
+  demo.bind(obj,100,100)()
+  let newFn = demo.bind(obj,100,100)
+  newFn()
+  /**************************************/
+  Object.prototype.myBind = function(targetObj,...args) {
+    if(targetObj === null || targetObj === undefined) {
+      targetObj = globalThis
+    }
+    // 返回一个新的函数
+    return () => {
+      this.call(targetObj,...args)
+    }
+  }
+  demo.myBind(obj,10,10)()
+</script>

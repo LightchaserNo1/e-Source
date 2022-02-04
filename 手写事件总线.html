@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写事件总线</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  const eventBus = {
+    callBacks: {}
+  }
+  eventBus.on = function(type,callBack){
+    if(this.callBacks[type]) {
+      this.callBacks[type].push(callBack)
+    }else{
+      this.callBacks[type] = [callBack]
+    }
+  }
+  eventBus.emit = function(type,data) {
+    if(this.callBacks[type]&&this.callBacks[type].length>0) {
+      this.callBacks[type].forEach(callback=>{
+        callback(data)
+      })
+    }
+  }
+  eventBus.off = function(type) {
+    if(!type){
+      this.callBacks = {}
+    }else{
+      delete this.callBacks[type]
+    }
+  }
+  eventBus.on('login',e=>{
+    console.log(e,'用户已登录')
+  })
+  setTimeout(()=>{
+    eventBus.emit('login','张三')
+  },2000)
+</script>

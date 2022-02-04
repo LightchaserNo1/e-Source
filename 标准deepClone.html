@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>标准深拷贝</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  function deepClone (target,map = new Map()) {
+    if(typeof(target) === 'object' && target!==null) {
+      let cache = map.get(target)
+      if(cache) {
+        return cache
+      }
+      let isArray = target instanceof Array
+      const result = isArray?[]:{}
+      map.set(target,result)
+      if(isArray) {
+        target.forEach((item,index)=>{
+          result[index] = deepClone(item,map)
+        })
+      }else {
+        Object.keys(target).forEach(key=>{
+          result[key] = deepClone(target[key],map)
+        })
+      }
+      return result
+    }else {
+      return target
+    }
+  }
+  let obj = {
+    age:20,
+    info: {name:'tom'},
+    arr: [1,2,3]
+  }
+  let obj2 = deepClone(obj)
+  obj2.info.name = 'jack'
+  console.log(obj)
+  console.log(obj2)
+</script>

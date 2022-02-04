@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组扁平化</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  let arr = [[123,[456,[7,8]],[9]]]
+  Array.prototype.flatten1 = function(){
+    let result = []
+    this.forEach(item=>{
+      if(item instanceof Array) {
+        result = result.concat(item.flatten1())
+      }else {
+        result = result.concat(item)
+      }
+    })
+    return result
+  }
+  Array.prototype.flatten2 = function() {
+    let result = [...this]
+    while(result.some(item=>item instanceof Array)) {
+      result = [].concat(...result)// 一层一层的展开，直到所有的元素都不是数组
+    }
+    return result
+  }
+  console.log(arr.flatten2())
+</script>
